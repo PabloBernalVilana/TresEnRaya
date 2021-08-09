@@ -1,7 +1,8 @@
 package tresenraya.TresEnRaya;
 
-import java.awt.Color;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,7 +11,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 public class InterfazGrafica extends JFrame {
-	
+
 	// Interfaz grafica
 	private static final long serialVersionUID = 1L;
 	// paneles
@@ -18,6 +19,7 @@ public class InterfazGrafica extends JFrame {
 	private JPanel panelJuego;
 	private JPanel panelJugador1;
 	private JPanel panelJugador2;
+	
 	// etiquetas
 	private JLabel etiquetaJugador1;
 	private JLabel etiquetaJugador2;
@@ -30,7 +32,17 @@ public class InterfazGrafica extends JFrame {
 	private JTextArea textAreaJugador2;
 	private JTextArea textAreaEventoJ1;
 	private JTextArea textAreaEventoJ2;
-	// boton
+	// botones tablero
+	private JButton b1;
+	private JButton b2;
+	private JButton b3;
+	private JButton b4;
+	private JButton b5;
+	private JButton b6;
+	private JButton b7;
+	private JButton b8;
+	private JButton b9;
+	// boton nueva partida
 	private JButton nuevaPartida;
 	// radio butons
 	private JRadioButton humanoJ1;
@@ -45,8 +57,14 @@ public class InterfazGrafica extends JFrame {
 	private final String humanoString = "Humano";
 	private final String CPUString = "CPU";
 	private final String nuevaPartidaJ1 = "Nueva Partida";
+	// private char player = 0;
+	// private char win = 0;
+	// private String tableroArray[] = new String[9]; // Para rellenar el tablero
+	// private boolean isStart = true;
 
+	// Variables dimensiones
 	private final int dimensionPaneles = 425;
+
 
 	public void crearVentana() {
 		// añadimos el titulo
@@ -64,10 +82,13 @@ public class InterfazGrafica extends JFrame {
 
 	public void iniciarComponentes() {
 		colocarPanel();
-		colocarEtiquetas();
-		colocarRadioButons();
-		colocarTextArea();
 		colocarBotones();
+		colocarEtiquetas();
+		colocarTextArea();
+		colocarRadioButons();
+		/*
+		 * if (isStart) { getChar(); isStart = false; } resultado();
+		 */
 	}
 
 	private void colocarEtiquetas() {
@@ -118,63 +139,66 @@ public class InterfazGrafica extends JFrame {
 
 	public void colocarPanel() {
 
-		// Creacion del panel
+		// Creacion del panel Contenedor
 		panelContenedor = new JPanel();
-		panelContenedor.setBackground(Color.RED);
+		panelContenedor.setBackground(Color.LIGHT_GRAY);
 		panelContenedor.setLayout(null);
-
+		// panel contenedor tablero
 		panelJuego = new JPanel();
-		panelJuego.setBackground(Color.YELLOW);
+		panelJuego.setBackground(Color.DARK_GRAY);
 		panelJuego.setBounds(10, 250, dimensionPaneles, dimensionPaneles);
-		panelJuego.setLayout(null);
 
+		// paneles tablero
 		panelJugador1 = new JPanel();
-		panelJugador1.setBackground(Color.BLUE);
+		panelJugador1.setBackground(Color.DARK_GRAY);
 		panelJugador1.setBounds(545, 10, dimensionPaneles, dimensionPaneles);
 		panelJugador1.setLayout(null);
-
+		// panel jugador 2
 		panelJugador2 = new JPanel();
-		panelJugador2.setBackground(Color.GREEN);
+		panelJugador2.setBackground(Color.DARK_GRAY);
 		panelJugador2.setBounds(545, 520, dimensionPaneles, dimensionPaneles);
 		panelJugador2.setLayout(null);
-
+		// añadir paneles al panel contenedor
 		setContentPane(panelContenedor);
 
 		panelContenedor.add(panelJuego);
+		// añadir paneles al tablero
+		panelJuego.setLayout(new GridLayout(3, 3));
+
+		// añadir panel jugadores al panel contenedor
 		panelContenedor.add(panelJugador1);
 		panelContenedor.add(panelJugador2);
 	}
-	
+
 	private void colocarRadioButons() {
 		humanoJ1 = new JRadioButton();
 		humanoJ1.setText(humanoString);
 		humanoJ1.setBounds(160, 350, 75, 30);
 		panelJugador1.add(humanoJ1);
-		
+
 		CPUJ1 = new JRadioButton();
 		CPUJ1.setText(CPUString);
 		CPUJ1.setBounds(240, 350, 75, 30);
 		panelJugador1.add(CPUJ1);
-		
+
 		humanoJ2 = new JRadioButton();
 		humanoJ2.setText(humanoString);
 		humanoJ2.setBounds(160, 350, 75, 30);
 		panelJugador2.add(humanoJ2);
-		
+
 		CPUJ2 = new JRadioButton();
 		CPUJ2.setText(CPUString);
 		CPUJ2.setBounds(240, 350, 75, 30);
 		panelJugador2.add(CPUJ2);
-		
-			
 	}
+
 	private void colocarTextArea() {
 		// Jugador 1
 		textAreaJugador1 = new JTextArea();
 		textAreaJugador1.setBounds(160, 250, 80, 30);
 		textAreaJugador1.setBackground(Color.LIGHT_GRAY);
 		panelJugador1.add(textAreaJugador1);
-		
+
 		textAreaEventoJ1 = new JTextArea();
 		textAreaEventoJ1.setBounds(75, 150, 200, 30);
 		textAreaEventoJ1.setBackground(Color.LIGHT_GRAY);
@@ -185,22 +209,44 @@ public class InterfazGrafica extends JFrame {
 		textAreaJugador2.setBounds(160, 250, 80, 30);
 		textAreaJugador2.setBackground(Color.LIGHT_GRAY);
 		panelJugador2.add(textAreaJugador2);
-		
+
 		textAreaEventoJ2 = new JTextArea();
 		textAreaEventoJ2.setBounds(75, 150, 200, 30);
 		textAreaEventoJ2.setBackground(Color.LIGHT_GRAY);
 		textAreaEventoJ2.setEditable(false);
 		panelJugador2.add(textAreaEventoJ2);
-		
 	}
+
 	private void colocarBotones() {
 		nuevaPartida = new JButton();
 		nuevaPartida.setBounds(150, 75, 135, 30);
 		nuevaPartida.setText(nuevaPartidaJ1);
 		nuevaPartida.setBackground(Color.LIGHT_GRAY);
 		panelJugador1.add(nuevaPartida);
-		
+		// botones tablero
+		b1 = new JButton();
+		b2 = new JButton();
+		b3 = new JButton();
+		b4 = new JButton();
+		b5 = new JButton();
+		b6 = new JButton();
+		b7 = new JButton();
+		b8 = new JButton();
+		b9 = new JButton();
+
+		panelJuego.add(b1);
+		panelJuego.add(b2);
+		panelJuego.add(b3);
+		panelJuego.add(b4);
+		panelJuego.add(b5);
+		panelJuego.add(b6);
+		panelJuego.add(b7);
+		panelJuego.add(b8);
+		panelJuego.add(b9);
+
 		
 	}
+
+	
 
 }
